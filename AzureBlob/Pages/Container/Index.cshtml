@@ -1,0 +1,89 @@
+﻿@page
+@model AzureBlob.Pages.Container.IndexModel
+@{
+    Layout = "_Layout";
+}
+<div class="container mt-5">
+    <div class="row d-flex align-items-center mb-5">
+        <div class="col-6">
+            <h3>List of Azure Containers</h3>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-page="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i>&nbsp; Create Container</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered border-primary table-hover table-striped">
+                <thead class="text-center">
+                    <tr>
+                        <th>Container</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var container in Model.Containers)
+                    {
+                        <tr class="text-center">
+                            <td><a asp-page="/Blob/Index" asp-route-name="@container">@container</a></td>
+                            <td>
+                                <a asp-page="Delete" asp-route-name="@container" class="btn btn-danger mx-3"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="border border-primary p-4 mt-4">
+            <div class="col-12 d-flex justify-content-around align-items-center">
+                <div>
+                    <select id="source" class="form-select" asp-items="Model.Containers.Select(e=> new SelectListItem(){Text=e,Value=e})">
+                        <option selected disabled>Select Container</option>
+                    </select>
+                </div>
+                <div>
+                    <i class="bi bi-arrow-right fs-5"></i>
+                </div>
+                <div>
+                    <select id="dest" class="form-select" asp-items="Model.Containers.Select(e=> new SelectListItem(){Text=e,Value=e})">
+                        <option selected disabled>Select Container</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                @Html.AntiForgeryToken()
+                <button class="btn btn-warning" id="copycontainer">Copy</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+<script>
+    $(document).ready(function(){
+        $('#copycontainer').click(function(){
+
+            $.ajax({
+                type:"POST",
+                url: "/Container?handler=CopyContainer",
+                data: { source : $('#source').val(), destination : $('#dest').val() },
+                beforeSend : function(xhr){
+                    xhr.setRequestHeader("XSRF-TOKEN",$('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                success : function(data){
+                        $.showNotification({
+                            body: data,
+                            type: "success",
+                            duration: 2000
+                        })
+                }
+            })
+
+        })
+    })
+</script>
+}

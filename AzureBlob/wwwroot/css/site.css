@@ -1,0 +1,37 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.bs4ToastWrapper {
+    position: fixed;
+    z-index: 1;
+    left: 75%;
+    top: 2%;
+    width: 300px;
+}
+
+.bs4Toasticonimage {
+    height: 15px;
+}
+
+.bs4Toasticon {
+    margin-right: 0.5rem;
+}

@@ -1,0 +1,18 @@
+﻿@page
+@{
+    Layout = "_Layout";
+}
+@model AzureBlob.Pages.Container.DeleteModel
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary pl-3">Delete Container</h2>
+        </div>
+        <div class="mb-2">
+            <label asp-for="Container.Name"></label>
+            <input asp-for="Container.Name" class="form-control" disabled/>
+            <span asp-validation-for="Container.Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </div>
+</form>

@@ -1,0 +1,58 @@
+﻿@page
+@model AzureBlob.Pages.Blob.IndexModel
+
+@{
+    Layout = "_Layout";
+}
+<div class="container mt-5">
+    <div class="row d-flex align-items-center mb-5">
+        <div class="col-6">
+            <h3>List of Azure Containers</h3>
+        </div>
+        <div class="col-6 text-end">
+            <form method="post" enctype="multipart/form-data">
+                <input id="fileblob" type="file" name="fileblob"  />
+                <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i>&nbsp; Upload to Container</button>
+            </form>
+            
+        </div>
+    </div>
+    <div class="row">
+        
+        @foreach(var blob in Model.AZBlobs)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+                <div class="card" style="width: 22rem;">
+                    @if (blob.ContentType.StartsWith("image"))
+                    {
+                        <img src="@blob.Name" style="min-width:100%" class="card-img-top" alt="...">
+                    }
+                    else if (blob.ContentType == "application/json" || blob.ContentType == "application/pdf" || blob.ContentType == "text/plain" || blob.ContentType == "text/html")
+                    {
+                        <iframe src="@blob.Name" style="background:white;"></iframe>
+                    }
+                    else if (blob.ContentType.StartsWith("video"))
+                    {
+                        <video>
+                            <source src="@blob.Name" type="@blob.ContentType" />
+                            Your browser does not support the video tag.
+                        </video>
+                    }
+                    else
+                    {
+                        <p class="pt-2 text-center">Preview is not available for this blob</p>
+                    }
+                    <div class="card-body d-flex justify-content-around align-items-center">
+                        <div><a asp-page="/Blob/Index" asp-page-handler="DownloadBlob" asp-route-blobname="@blob.BlobName" asp-route-containerName="@blob.Container" class="btn btn-primary">Download</a></div>
+                        <div><a asp-page="/Blob/Index" asp-page-handler="DeleteBlob" asp-route-name="@blob.BlobName" asp-route-containerName="@blob.Container" class="btn btn-danger">Delete</a></div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        
+        
+        
+    </div>
+
+</div>
