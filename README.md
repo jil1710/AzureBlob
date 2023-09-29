@@ -34,7 +34,7 @@
 
 - **Step 2 :**
 
-    Download the below nuget package in order to start with azure redis cache.
+    Download the below nuget package in order to start with azure storage blob.
 
     ```csharp
         Azure.Storage.Blobs
