@@ -11,7 +11,7 @@ namespace AzureBlob.Services
         public ContainerService(IConfiguration configuration)
         {
             _configuration = configuration;
-            blobServiceClient = new BlobServiceClient(_configuration.GetConnectionString("AzureStorageAccount"));
+            blobServiceClient = new BlobServiceClient(_configuration["ConnectionStrings:AzureStorageAccount"]);
         }
 
 

@@ -15,7 +15,7 @@ namespace AzureBlob.Services
         public BlobService(IConfiguration configuration)
         {
             _configuration = configuration;
-            blobServiceClient = new BlobServiceClient(_configuration.GetConnectionString("AzureStorageAccount"));
+            blobServiceClient = new BlobServiceClient(_configuration["ConnectionStrings:AzureStorageAccount"]);
         }
 
         public async Task<List<AzBlob>> ListContainerItems(string containerName)
