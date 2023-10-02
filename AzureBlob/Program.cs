@@ -1,8 +1,9 @@
-using Azure.Extensions.AspNetCore.Configuration.Secrets;
+
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using AzureBlob.Services;
 using Microsoft.Extensions.Configuration;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 
 namespace AzureBlob
 {
@@ -29,7 +30,7 @@ namespace AzureBlob
             var credential = new ClientSecretCredential(keyVaultTenantId, keyVaultClientId, keyVaultClientSecret);
 
             var client = new SecretClient(new Uri(keyVaultURL!), credential);
-            builder.Configuration.AddAzureKeyVault(client,new AzureKeyVaultConfigurationOptions() { Manager = new PrefixKeyVaultManager("AzureBlob") });
+            builder.Configuration.AddAzureKeyVault(client,new AzureKeyVaultConfigurationOptions() { Manager = new PrefixKeyVaultManager("AzureBlob")});
 
            
 
